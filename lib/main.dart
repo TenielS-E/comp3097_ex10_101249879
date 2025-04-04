@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
   void _convertToUSD(String val) {
     if (val.isNotEmpty){
       double cad = double.tryParse(val) ?? 0;
-      _cadCon.text = (cad / rate).toStringAsFixed(2);
+      _usdCon.text = (cad / rate).toStringAsFixed(2);
     }
   }
 
@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
     Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => SummaryPage(/*data needed*/)
+        builder: (context) => SummaryPage(cad: _cadCon.text, usd: _usdCon.text, rate: rate)
       )
     );
   }
@@ -86,16 +86,23 @@ class _MainPageState extends State<MainPage> {
 }
 
 class SummaryPage extends StatelessWidget {
-  const SummaryPage({super.key});
+  final String cad;
+  final String usd;
+  final double rate;
+
+  const SummaryPage({super.key, required this.cad, required this.usd, required this.rate});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Currency Summary Page")),
-      body: Center(
+      appBar: AppBar(title: Text("Conversion Summary Page")),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text("placeholder", style: TextStyle(fontSize: 20),),
+            Text("CAD: $cad", style: TextStyle(fontSize: 20)),
+            Text("USD: $usd", style: TextStyle(fontSize: 20)),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
