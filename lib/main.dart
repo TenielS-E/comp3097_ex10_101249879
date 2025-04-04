@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// First Screen: Currency Input
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -58,7 +59,7 @@ class _MainPageState extends State<MainPage> {
   // conversion methods
   void _convertToCAD(String val) {
     if (val.isNotEmpty){
-      double usd = double.tryParse(val) ?? 0;
+      double usd = double.tryParse(val) ?? 0; // if a letter was given or text was entered it automatically displays the rate converted as 0.00
       _cadCon.text = (usd * rate).toStringAsFixed(2);
     }
   }
@@ -91,11 +92,11 @@ class _MainPageState extends State<MainPage> {
             Text("Welcome user to Teniel's Currency Converter App!", style: TextStyle(color: Colors.deepPurple, fontSize: 25.0)), 
             TextFormField(
               controller: _cadCon,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType: TextInputType.numberWithOptions(decimal: true), // input on mobile - displays numeric keyboard which helps prevent string character input
               decoration: InputDecoration(label: Text('CAD: ')),
               onChanged: _convertToUSD,
             ), 
-            SizedBox(height: 20), 
+            SizedBox(height: 20), // affects spacing
             TextFormField(
               controller: _usdCon,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -111,6 +112,7 @@ class _MainPageState extends State<MainPage> {
   }    
 }
 
+// Second Screen - Conversion Summary Screen
 class SummaryPage extends StatelessWidget {
   final String cad;
   final String usd;
